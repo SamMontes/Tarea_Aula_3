@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  forms:
+    image: "mcr.microsoft.com/azure-cognitive-services/form-recognizer/layout"
+    environment:
+       eula: accept
+       billing: # < Your form recognizer billing URL >
+       apikey: # < Your form recognizer API key >
+       FormRecognizer__ComputerVisionApiKey: # < Your form recognizer API key >
+       FormRecognizer__ComputerVisionEndpointUri: # < Your form recognizer URI >
+    volumes:
+       - type: bind
+         source: E:\publicpreview\output
+         target: /output
+       - type: bind
+         source: E:\publicpreview\input
+         target: /input
+    ports:
+      - "3000:3000"
+
+  ocr:
+    image: "mcr.microsoft.com/azure-cognitive-services/vision/read:3.1-preview"
+    environment:
+      eula: accept
+      apikey: # < Your computer vision API key >
+      billing: # < Your computer vision billing URL >
+    ports:
+      - "3000:3000"
